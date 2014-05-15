@@ -27,8 +27,10 @@
 
             this.ticker = new window.LOOPER.Ticker(config);
             this.interface = new window.LOOPER.Interface(config);
+            this.canvas = new window.LOOPER.Canvas(config);
             modules.push(this.ticker);
             modules.push(this.interface);
+            modules.push(this.canvas);
         },
         initialiseModules : function () {
 
@@ -43,6 +45,7 @@
 
             this.ticker.bind('tick', function(e) {
                 that.interface.execute('tick', e);
+                that.canvas.execute('tick', e);
             });
 
             this.ticker.bind('pause', function(e) {

@@ -29,3 +29,8 @@ a:hover {
 .link--inactive {
     color: #efefef;
 }
+
+#Canvas {
+    margin: 10px;
+    border: solid 1px #efefef;
+}
