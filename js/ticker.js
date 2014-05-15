@@ -1,11 +1,10 @@
 (function(window, document, undefined){
-    console.log('JS Game Loop: Loop');
 
     window.LOOPER = window.LOOPER || {};
 
-    var Ticker = function () {
+    var Ticker = function (config) {
 
-        this.timeout = 30;
+        this.timeout = config.timeout;
         this.previousTime = new Date();
         this.currentTime = new Date();
         this.timeoutId;
@@ -24,28 +23,25 @@
 
             this.currentTime = new Date();
             this.fps = 1000 / (this.currentTime - this.previousTime);
-
             this.trigger('tick', { 'fps' : this.fps });
-
             this.previousTime = this.currentTime;
             this.timeoutId = window.setTimeout(this.tick.bind(this), this.timeout);
         },
         pauseCommand : function () {
 
-            console.log('Ticker.pause()');
             window.clearTimeout(this.timeoutId);
             this.timeoutId = null;
             this.trigger('pause');
         },
         resumeCommand : function () {
 
-            console.log('Ticker.resume()');
             if (!this.timeoutId) {
                 this.timeoutId = window.setTimeout(this.tick.bind(this), this.timeout);
             }
             this.trigger('resume');
         },
         execute : function (command) {
+
             this[command + 'Command']();
         }
     }

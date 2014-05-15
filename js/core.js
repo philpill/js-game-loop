@@ -1,10 +1,19 @@
 (function(window, document, undefined){
 
-    console.log('JS Game Loop: Core');
+    console.log(',-->--->--->--->--->-,');
+    console.log('|  ,---->----->---,  |');
+    console.log('|  | JS Game Loop |  |');
+    console.log('|  \'---<-----<----\'  |');
+    console.log('\'--<---<---<---<---<-\'');
 
     window.LOOPER = window.LOOPER || {};
 
     var modules = [];
+
+    var config = {
+
+        timeout : 50
+    }
 
     var core = {
 
@@ -16,8 +25,8 @@
         },
         loadModules : function () {
 
-            this.ticker = new window.LOOPER.Ticker();
-            this.interface = new window.LOOPER.Interface();
+            this.ticker = new window.LOOPER.Ticker(config);
+            this.interface = new window.LOOPER.Interface(config);
             modules.push(this.ticker);
             modules.push(this.interface);
         },

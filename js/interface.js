@@ -1,11 +1,11 @@
 (function(window, document, undefined){
 
-    console.log('JS Game Loop Interface');
-
     window.LOOPER = window.LOOPER || {};
 
-    var Interface = function () {
+    var Interface = function (config) {
 
+        this.timeout = config.timeout;
+        this.timeoutEl = document.getElementById('Timeout');
         this.fpsEl = document.getElementById('Fps');
         this.inactiveStyleClass = 'link--inactive';
         this.controlClass = 'control';
@@ -16,10 +16,15 @@
         constructor : Interface,
 
         init : function () {
-            console.log('Interface init()');
+
+            this.initialiseControls();
             this.bindControls();
             this.deactivateControls();
             this.activatePause();
+        },
+        initialiseControls: function () {
+
+            this.timeoutEl.innerHTML = this.timeout;
         },
         deactivateControls : function () {
 
@@ -67,20 +72,20 @@
         },
         pauseCommand : function () {
 
-            console.log('pauseCommand()');
             this.deactivateControls();
             this.activateResume();
         },
         resumeCommand : function () {
 
-            console.log('resumeCommand()');
             this.deactivateControls();
             this.activatePause();
         },
         execute : function (command, e) {
+
             this[command + 'Command'](e);
         },
         tickCommand : function (e) {
+
             var fps = Math.round(e.fps*10)/10;
             this.fpsEl.innerHTML = fps;
         }
