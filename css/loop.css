@@ -34,3 +34,7 @@ a:hover {
     margin: 10px;
     border: solid 1px #efefef;
 }
+
+#Canvas:hover {
+    cursor: pointer;
+}

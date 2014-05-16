@@ -10,20 +10,17 @@
 
     var modules = [];
 
-    var config = {
-
-        timeout : 50
-    }
-
     var core = {
 
         init : function () {
 
-            this.loadModules();
+            var config = window.LOOPER.state;
+
+            this.loadModules(config);
             this.initialiseModules();
-            this.bindEvents();
+            this.bindEvents(config);
         },
-        loadModules : function () {
+        loadModules : function (config) {
 
             this.ticker = new window.LOOPER.Ticker(config);
             this.interface = new window.LOOPER.Interface(config);
@@ -39,7 +36,7 @@
                 modules[l].init();
             }
         },
-        bindEvents : function () {
+        bindEvents : function (config) {
 
             var that = this;
 
@@ -48,14 +45,25 @@
                 that.canvas.execute('tick', e);
             });
 
+            this.canvas.bind('click', function(e) {
+                console.log('canvas:click');
+                if (config.isPaused) {
+                    that.ticker.execute('resume');
+                } else {
+                    that.ticker.execute('pause');
+                }
+            });
+
             this.ticker.bind('pause', function(e) {
                 console.log('ticker:pause');
                 that.interface.execute('pause');
+                config.isPaused = true;
             });
 
             this.ticker.bind('resume', function(e) {
                 console.log('ticker:resume');
                 that.interface.execute('resume');
+                config.isPaused = false;
             });
 
             this.interface.bind('pause', function(e) {

@@ -4,6 +4,7 @@
 
     var Canvas = function (config) {
 
+        this.beatRate = config.canvas.heartbeat.rate;
     }
 
     Canvas.prototype = {
@@ -17,11 +18,8 @@
             this.bindEvents();
         },
         bindEvents : function () {
-            this.canvas.addEventListener('click', function (e) {
 
-                console.log(e);
-
-            }, false);
+            this.canvas.onclick = this.trigger.bind(this, 'click');
         },
         execute : function (command, e) {
 
@@ -32,11 +30,11 @@
             this.clear();
             this.drawBeat();
         },
-        drawBeat : function () {
+        setAlpha : function () {
 
             this.alpha = this.alpha || 1;
             this.direction = this.direction || 1;
-            this.delta = this.delta || 0.1;
+            this.delta = this.delta || this.beatRate;
 
             if (this.direction === 1) {
                 this.alpha += this.delta;
@@ -52,6 +50,10 @@
                     this.direction = 1;
                 }
             }
+        },
+        drawBeat : function () {
+
+            this.setAlpha();
 
             this.ctx.beginPath();
             this.ctx.arc(10, 10, 5, 0, 2 * Math.PI, false);
@@ -59,6 +61,7 @@
             this.ctx.fill();
         },
         clear : function () {
+
             this.canvas.width = this.canvas.width;
         }
     }
