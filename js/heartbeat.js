@@ -4,18 +4,14 @@
 
     var Heartbeat = function (config) {
 
+        this.rate = config.rate;
+        this.ctx = config.ctx;
     }
 
     Heartbeat.prototype = {
 
         constructor : Heartbeat,
 
-        init : function () {
-
-        },
-        bindEvents : function () {
-
-        },
         execute : function (command, e) {
 
             this[command + 'Command'](e);
@@ -28,7 +24,7 @@
 
             this.alpha = this.alpha || 1;
             this.direction = this.direction || 1;
-            this.delta = this.delta || 0.1;
+            this.delta = this.delta || this.rate;
 
             if (this.direction === 1) {
                 this.alpha += this.delta;
