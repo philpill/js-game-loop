@@ -3,4 +3,5 @@ js-game-loop
 
 Basic JS game loop
 
-Testing
+
+http://industrialnation.co.uk/demo/js-game-loop/
